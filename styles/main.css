@@ -1,8 +1,7 @@
-/* --- Discord Color Palette & Variables --- */
 :root {
-    --bg-primary: #313338;      /* Main Chat Background */
-    --bg-secondary: #2b2d31;    /* Sidebar / Member List */
-    --bg-tertiary: #1e1f22;     /* Server List */
+    --bg-primary: #313338;
+    --bg-secondary: #2b2d31;
+    --bg-tertiary: #1e1f22;
     --bg-modifier-hover: rgba(78, 80, 88, 0.3);
     --bg-modifier-active: rgba(78, 80, 88, 0.48);
     --text-normal: #dbdee1;
@@ -11,11 +10,10 @@
     --interactive-normal: #b5bac1;
     --interactive-hover: #dbdee1;
     --interactive-active: #fff;
-    --brand-experiment: #5865F2; /* Blurple */
+    --brand-experiment: #5865F2;
     --channeltextarea-background: #383a40;
 }
 
-/* --- Base Reset --- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -27,7 +25,7 @@ body {
     background: var(--bg-primary);
     color: var(--text-normal);
     overflow: hidden;
-    user-select: none; /* Prevents dragging UI text */
+    user-select: none;
 }
 
 #layout {
@@ -35,7 +33,6 @@ body {
     height: 100vh;
 }
 
-/* --- Server List --- */
 #serverList {
     width: 72px;
     background: var(--bg-tertiary);
@@ -109,7 +106,6 @@ body {
     border-radius: 16px;
 }
 
-/* --- Sidebar (Channels) --- */
 #sidebar {
     width: 240px;
     background: var(--bg-secondary);
@@ -177,7 +173,6 @@ body {
     margin-right: 6px;
 }
 
-/* --- User Panel (Bottom Left) --- */
 .user-panel {
     height: 52px;
     background: #232428;
@@ -215,7 +210,6 @@ body {
     padding: 8px;
 }
 
-/* --- Main Chat Area --- */
 #chat {
     flex: 1;
     display: flex;
@@ -240,7 +234,6 @@ body {
     margin-right: 8px;
 }
 
-/* --- Messages --- */
 #messages {
     flex: 1;
     overflow-y: auto;
@@ -252,7 +245,7 @@ body {
 .message-group {
     display: flex;
     padding: 2px 16px 2px 16px;
-    margin-top: 17px; /* Space between different users */
+    margin-top: 17px;
 }
 
 .message-group:hover {
@@ -296,10 +289,9 @@ body {
     font-size: 15px;
     line-height: 1.375rem;
     color: var(--text-normal);
-    user-select: text; /* Allow users to copy message text */
+    user-select: text;
 }
 
-/* --- Input Bar --- */
 .input-container {
     padding: 0 16px 24px 16px;
 }
@@ -344,7 +336,6 @@ body {
     margin-right: 12px;
 }
 
-/* --- Member List --- */
 #memberList {
     width: 240px;
     background: var(--bg-secondary);
@@ -392,8 +383,120 @@ body {
 
 .status-indicator.online { background: #23a559; }
 
-/* Custom Scrollbars */
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--bg-secondary); border-radius: 4px; }
 ::-webkit-scrollbar-thumb { background: #1a1b1e; border-radius: 4px; }
 #messages::-webkit-scrollbar-track { background: var(--bg-primary); }
+
+.login-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('https://theme.zdassets.com/theme_assets/678183/b7e9dce75f9edb23504e13b4699e208f204e5015.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.login-box {
+    background: var(--bg-primary);
+    width: 480px;
+    padding: 32px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.login-header {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--header-primary);
+    margin-bottom: 8px;
+}
+
+.login-subheader {
+    color: var(--text-muted);
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    color: #b5bac1;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.input-group .required {
+    color: #f23f43;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    background: var(--bg-tertiary);
+    border: 1px solid rgba(0,0,0,0.3);
+    border-radius: 3px;
+    color: var(--text-normal);
+    font-size: 16px;
+    outline: none;
+}
+
+.brand-btn {
+    width: 100%;
+    padding: 10px;
+    background: var(--brand-experiment);
+    color: white;
+    border: none;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.brand-btn:hover {
+    background: #4752c4;
+}
+
+.login-divider {
+    margin: 20px 0;
+    color: var(--text-muted);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.login-divider::before, .login-divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid var(--bg-modifier-active);
+}
+
+.login-divider span {
+    margin: 0 10px;
+}
+
+.google-btn {
+    background: white;
+    color: #313338;
+}
+
+.google-btn:hover {
+    background: #f2f3f5;
+}
+
+.hidden {
+    display: none !important;
+}
