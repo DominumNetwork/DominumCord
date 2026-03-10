@@ -51,7 +51,7 @@ export function initMessages() {
 function renderMessage(data, container) {
     const username = data.authorName || "Unknown User";
     const text = data.text || "";
-    const avatarUrl = data.authorPhoto || "https://cdn.discordapp.com/embed/avatars/0.png";
+    const avatarUrl = data.authorPhoto || "./assets/default_avatar.png";
     
     let timeString = "Just now";
     if (data.createdAt) {
