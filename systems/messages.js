@@ -14,14 +14,15 @@ export function initMessages() {
     const messagesContainer = document.getElementById('messages');
     const messageInput = document.getElementById('messageInput');
     
-    const q = query(collection(db, "messages"), orderBy("timestamp", "asc"));
+    const messagesRef = collection(db, "servers", "default_server", "channels", "general", "messages");
+    
+    const q = query(messagesRef, orderBy("createdAt", "asc"));
     
     onSnapshot(q, (snapshot) => {
-        messagesContainer.innerHTML = '';
+        messagesContainer.innerHTML = ''; 
         
         snapshot.forEach((doc) => {
-            const data = doc.data();
-            renderMessage(data, messagesContainer);
+            renderMessage(doc.data(), messagesContainer);
         });
         
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
@@ -30,13 +31,15 @@ export function initMessages() {
     messageInput.addEventListener('keypress', async (e) => {
         if (e.key === 'Enter' && messageInput.value.trim() !== '') {
             const text = messageInput.value.trim();
-            messageInput.value = '';
+            messageInput.value = ''; 
             
             try {
-                await addDoc(collection(db, "messages"), {
+                await addDoc(messagesRef, {
                     text: text,
-                    username: "Dominum", // Hardcoded for now until auth is linked
-                    timestamp: serverTimestamp()
+                    authorName: "Dominus_Elitus",
+                    authorId: "NwemXkwJJLTxeDjXQ6ywaTgaVHF2",
+                    authorPhoto: "https://cdn.discordapp.com/embed/avatars/0.png",
+                    createdAt: serverTimestamp()
                 });
             } catch (error) {
                 console.error("Error sending message: ", error);
@@ -46,18 +49,19 @@ export function initMessages() {
 }
 
 function renderMessage(data, container) {
-    const username = data.username || "Unknown User";
+    const username = data.authorName || "Unknown User";
     const text = data.text || "";
+    const avatarUrl = data.authorPhoto || "https://cdn.discordapp.com/embed/avatars/0.png";
     
     let timeString = "Just now";
-    if (data.timestamp) {
-        const date = data.timestamp.toDate ? data.timestamp.toDate() : new Date(data.timestamp);
+    if (data.createdAt) {
+        const date = data.createdAt.toDate ? data.createdAt.toDate() : new Date(data.createdAt);
         timeString = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     }
     
     const messageHTML = `
         <div class="message-group">
-            <div class="message-avatar"></div>
+            <div class="message-avatar" style="background-image: url('${avatarUrl}'); background-size: cover;"></div>
             <div class="message-content">
                 <div class="message-header">
                     <span class="message-username">${username}</span>
