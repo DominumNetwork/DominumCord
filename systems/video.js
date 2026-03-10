@@ -1,22 +1,28 @@
-export function initVoice() {
-    console.log("Voice system initialized");
+export function initVideo() {
+    console.log("Video system initialized");
+
+    const enableCameraBtn = document.getElementById("enableCameraBtn");
     
-    const joinVoiceBtn = document.getElementById("joinVoiceBtn");
-    
-    if (joinVoiceBtn) {
-        joinVoiceBtn.addEventListener("click", async () => {
+    if (enableCameraBtn) {
+        enableCameraBtn.addEventListener("click", async () => {
             try {
-                console.log("Requesting microphone access...");
-                const audioStream = await navigator.mediaDevices.getUserMedia({ 
-                    audio: true, 
-                    video: false 
+                console.log("Requesting camera access...");
+                const videoStream = await navigator.mediaDevices.getUserMedia({ 
+                    video: true, 
+                    audio: true
                 });
                 
-                console.log("Microphone connected!");
+                console.log("Camera connected!");
+                
+                const localVideoElement = document.getElementById("localVideo");
+                if (localVideoElement) {
+                    localVideoElement.srcObject = videoStream;
+                    localVideoElement.play();
+                }
                 
             } catch (error) {
-                console.error("Microphone access denied or failed:", error);
-                alert("Could not access your microphone. Check your browser permissions!");
+                console.error("Camera access denied or failed:", error);
+                alert("Could not access your camera. Check your browser permissions!");
             }
         });
     }
